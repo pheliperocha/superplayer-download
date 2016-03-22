@@ -1,0 +1,66 @@
+body {
+     background: #fff;
+     font-family: Glober,Verdana,sans-serif;
+}
+
+.music {
+     width: 500px;
+     height: 100px;
+     padding: 10px;
+     box-sizing: border-box;
+     background: #f2f2f2;
+     box-shadow: 0 -1px 1px rgba(0,0,0,.2), 0 1px 1px rgba(0,0,0,.2);
+     margin-bottom: 15px;
+}
+
+.music .cover {
+     width: 80px;
+     height: 80px;
+     float: left;
+     margin-right: 10px;
+}
+
+.music .cover img {
+     width: 100%;
+}
+
+.music .text {
+     display: -ms-grid;
+     display: grid;
+     font-size: 16px;
+}
+
+.music .conj {
+     color: rgb(153, 153, 153);
+}
+
+.music .name {
+     font-style: normal;
+}
+
+.music .artist {
+     font-weight: bold;
+}
+
+.music .playlist {
+     font-size: 12px;
+     color: rgb(233, 80, 76);
+     border: 1px solid rgb(233, 80, 76);
+     border-radius: 5px;
+     padding: 4px;
+}
+
+.music .download {
+     float: right;
+     border: none;
+     width: 24px;
+     height: 24px;
+     background-color: transparent;
+     background-image:      url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABBUlEQVRoQ+2Yaw6CMBCE21uCehfxLj64ZRUTjdEo+5ilqQy/+LFt55vZkg05Nf7kxvUnAtROkAn8TQJdvy0amPFygqQP2WQSTgBNfC+1TOBhBluILWR0gC3kNI5fIbbQUi3UbXZDKmXvPE+2POfDeD4OkmLVHVgEQiF+AlQB3Ie2yCSU4k0AYRAG8WYAOIRRvAsABuEQ7wZwQzjFQwDMEADxMAA1BEg8FEAMARQPB5iFAIsPAfgKESA+DOADIkh8KMAT4vYiHcwkw9t7jXoWshwSuYYAke5K9l5PAto/bxL3ftVI/16LEyCAMhImoDSsWrn4DlRTOHMwAWonwwSYgNOB5lvoCuAvnzEf1TNkAAAAAElFTkSuQmCC');
+     background-size: contain;
+     cursor: pointer;
+}
+
+.music .download:hover {
+     background-image:      url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABBElEQVRoQ+2Y0Q3CMAxE2ylYig82Ajbig6WYAhKpSP2oGp99bhS4fDvxPZ8TWZmnwdc8uP5JAL0dlAM/48Drcn4jMKfHk+I+5ZAqXACIfatYOfAthlpILeSsgFooWDi9Qmqho1qovPO3kusazGfdfi+zUs3XXNAdOAjCLL7SQQDL0JbpBCTeBZAIAYt3AyRAuMSHAIgQbvFhAAJESDwFIAARFk8DcEBQxFMBAAiaeDqAAYIqPgVgB4IuPg1gAyJFfCrACmKyDmbNyW0jAJ6FPEky9wggs7qWs//HAfTnzVK9vRjr77XZAQGAlsgBsGDdws13oJvCRmIB9HZGDsiBYAWGb6EP7mOFMZ7lKWIAAAAASUVORK5CYII=');
+}
