@@ -1,6 +1,6 @@
-var checkInterval;
+var checkInterval, Player, CurrentSong, startId, histSongName, histSongArtist;
 
-var Player = {
+Player = {
      hasPlayer: false,
      this: null,
      play: null,
@@ -13,7 +13,7 @@ var Player = {
      }
 };
 
-var CurrentSong = {
+CurrentSong = {
      id: null,
      artist: null,
      name: null,
@@ -24,17 +24,17 @@ var CurrentSong = {
      urlSong: null
 };
 
-var startId = 0;
-var histSongName = [];
-var histSongArtist = [];
+startId = 0;
+histSongName = [];
+histSongArtist = [];
 
 startWatch();
 
 function startWatch() {
      reset();
-     checkInterval = setInterval(function() {
+     checkInterval = setInterval(function () {
           if (checkIfHasPlayer()) {
-               getCurrentSong(function() {
+               getCurrentSong(function () {
                     insertDownloadButton();
                });
                stopWatch();
@@ -51,7 +51,7 @@ function reset(_callback) {
      histSongName = [];
      histSongArtist = [];
 
-     chrome.runtime.sendMessage({askFor: "reset"}, function(response) {
+     chrome.runtime.sendMessage({askFor: "reset"}, function (response) {
           _callback();
      });
 }
@@ -75,11 +75,18 @@ function checkIfHasPlayer() {
 
 function getCurrentSong(_callback) {
      if (Player.hasPlayer) {
-          var cover = Player.this.find("span[data-value='cover']").css('background-image');
+          var cover, duration;
+
+          cover = Player.this.find("span[data-value='cover']").css('background-image');
           cover = cover.replace('url("', '').replace('")', '');
+
+          duration = $.trim(Player.this.find("span[data-value='duration']").text());
+          duration = duration.split(":");
+          duration = ((parseInt(duration[0], 10) * 60) + (parseInt(duration[1], 10))) * 1000;
 
           CurrentSong.name = $.trim(Player.this.find("span[data-value='name']").text());
           CurrentSong.artist = $.trim(Player.this.find("strong[data-value='artist']").text());
+          CurrentSong.duration = duration;
           CurrentSong.cover = cover;
 
           if (jQuery.inArray(CurrentSong.name, histSongName) === -1 && jQuery.inArray(CurrentSong.artist, histSongArtist) === -1) {
@@ -97,8 +104,11 @@ function getCurrentSong(_callback) {
 }
 
 function askForMp3URL(songId, _callback) {
-     chrome.runtime.sendMessage({askFor: "urlSong", id: songId}, function(response) {
-          CurrentSong.urlSong = response;
+     chrome.runtime.sendMessage({askFor: "urlSong", id: songId}, function (response) {
+          if (response !== null) {
+               CurrentSong.urlSong = response;
+          }
+          reset();
           _callback();
      });
 }
@@ -135,9 +145,9 @@ function removeDownloadButton() {
 function updateDownloadButton() {
      removeDownloadButton();
 
-     setTimeout(function() {
-          waitForLoading(function() {
-               getCurrentSong(function() {
+     setTimeout(function () {
+          waitForLoading(function () {
+               getCurrentSong(function () {
                     insertDownloadButton();
                });
           });
@@ -145,12 +155,12 @@ function updateDownloadButton() {
 }
 
 function setClickedBtns() {
-     Player.skip.on("click", function() {
+     Player.skip.on("click", function () {
           updateDownloadButton();
      });
 
-     $(document).on("click", "button[data-action='play'], button[data-action='mix']", function() {
-          reset(function() {
+     $(document).on("click", "button[data-action='play'], button[data-action='mix']", function () {
+          reset(function () {
                updateDownloadButton();
           });
      });
